@@ -1,0 +1,23 @@
+{
+  "order": [
+    "design-token-extractor-migrator",
+    "smart-project-autostart",
+    "smart-config-drift-detector",
+    "dryguard-vscode",
+    "codebank",
+    "smartmerge-resolver",
+    "breaking-change-detector",
+    "stack-trace-resolver",
+    "cost-of-code-hints",
+    "docs-drift-checker",
+    "migration-tracker",
+    "stale-flag-finder",
+    "preflight-check"
+  ],
+  "repos": {
+    "design-token-extractor-migrator": "design-token-extractor",
+    "dryguard-vscode": "dryguard",
+    "smartmerge-resolver": "smartmerge"
+  },
+  "seoBlurbs": {}
+}

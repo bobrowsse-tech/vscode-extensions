@@ -1,0 +1,130 @@
+/* Ported from bobrowsse.com v2 — sibling surface, same brand tokens. */
+
+:root {
+  --font-geist-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-geist-mono: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --color-bg: #ffffff;
+  --color-surface: #f8f8f8;
+  --color-surface-raised: #ffffff;
+  --color-text: #222222;
+  --color-text-muted: #666666;
+  --color-rule: #e6e6e6;
+  --color-rule-strong: #cfcfcf;
+  --color-inverse-bg: #222222;
+  --color-inverse-text: #f8f8f8;
+  --color-inverse-muted: #b3b3b3;
+  --color-focus: #222222;
+  --color-overlay: rgb(0 0 0 / 0.4);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --text-h1: clamp(2.25rem, 1.6rem + 2.8vw, 4rem);
+  --text-h2: clamp(1.875rem, 1.4rem + 2vw, 3rem);
+  --text-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-body: 1.0625rem;
+  --text-small: 0.9375rem;
+  --text-meta: 0.8125rem;
+
+  --leading-tight: 1.05;
+  --leading-heading: 1.15;
+  --leading-body: 1.6;
+
+  --tracking-heading: -0.025em;
+  --tracking-meta: 0.02em;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-section: clamp(4rem, 2.5rem + 7vw, 9rem);
+
+  --container-max: 75rem;
+  --container-narrow: 45rem;
+  --gutter: clamp(1rem, 0.5rem + 3vw, 3rem);
+  --header-height: 4rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.75rem;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+
+  --focus-ring: 2px solid var(--color-focus);
+  --focus-offset: 3px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #111111;
+    --color-surface: #1a1a1a;
+    --color-surface-raised: #222222;
+    --color-text: #f2f2f2;
+    --color-text-muted: #a3a3a3;
+    --color-rule: #2a2a2a;
+    --color-rule-strong: #3d3d3d;
+    --color-inverse-bg: #f2f2f2;
+    --color-inverse-text: #111111;
+    --color-inverse-muted: #555555;
+    --color-focus: #f2f2f2;
+    --color-overlay: rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+  scroll-padding-top: calc(var(--header-height) + var(--space-4));
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  background: var(--color-bg);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

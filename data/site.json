@@ -1,0 +1,18 @@
+{
+  "publisher": "bobrowsse-tech",
+  "baseUrl": "https://bobrowsse-tech.github.io/vscode-extensions",
+  "basePath": "/vscode-extensions",
+  "siteName": "bobrowsse-tech extensions",
+  "owner": {
+    "name": "Bob Rowsse Walakira",
+    "email": "hello@bobrowsse.com",
+    "url": "https://bobrowsse.com",
+    "github": "https://github.com/bobrowsse-tech",
+    "positioning": "Pragmatic fullstack engineering. Building tools for real users."
+  },
+  "links": {
+    "marketplace": "https://marketplace.visualstudio.com/publishers/bobrowsse-tech",
+    "openVsx": "https://open-vsx.org/namespace/bobrowsse-tech",
+    "github": "https://github.com/bobrowsse-tech"
+  }
+}

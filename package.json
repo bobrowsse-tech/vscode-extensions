@@ -1,0 +1,29 @@
+{
+  "name": "vscode-extensions",
+  "version": "1.0.0",
+  "description": "SEO directory of bobrowsse-tech VS Code / Open VSX extensions — generated from live Open VSX metadata",
+  "main": "index.js",
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "build": "npm run generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobrowsse-tech/vscode-extensions.git"
+  },
+  "keywords": [],
+  "author": "Bob Rowsse Walakira <hello@bobrowsse.com>",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/bobrowsse-tech/vscode-extensions/issues"
+  },
+  "homepage": "https://github.com/bobrowsse-tech/vscode-extensions#readme",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "marked": "^15.0.12"
+  }
+}
