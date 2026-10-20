@@ -1,0 +1,13 @@
+{
+  "order": ["ai-kit"],
+  "packages": {
+    "ai-kit": {
+      "name": "@bobrowsse-tech/ai-kit",
+      "displayName": "AI Project Kit",
+      "description": "Drop-in rules, skills, reuse tooling, multi-agent guardrails, and MCP setup for AI-assisted projects. Zero runtime dependencies.",
+      "npmUrl": "https://www.npmjs.com/package/@bobrowsse-tech/ai-kit",
+      "githubUrl": "https://github.com/bobrowsse-tech/ai-kit",
+      "version": "1.6.0"
+    }
+  }
+}

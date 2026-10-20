@@ -153,3 +153,26 @@ export async function loadCatalog() {
 
   return { site, extensions };
 }
+
+/**
+ * Load curated npm packages for the Tools section (not Open VSX).
+ * @returns {Promise<object[]>}
+ */
+export async function loadPackages() {
+  const raw = JSON.parse(await readFile(path.join(ROOT, "data/packages.json"), "utf8"));
+  const order = raw.order || [];
+  const map = raw.packages || {};
+  const ids = order.length > 0 ? order : Object.keys(map);
+  return ids
+    .filter((id) => map[id])
+    .map((id) => ({
+      id,
+      name: map[id].name,
+      displayName: map[id].displayName || map[id].name,
+      description: map[id].description || "",
+      npmUrl: map[id].npmUrl,
+      githubUrl: map[id].githubUrl,
+      version: map[id].version || "",
+    }));
+}
+

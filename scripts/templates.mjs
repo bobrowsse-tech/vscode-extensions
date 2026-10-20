@@ -56,6 +56,7 @@ export function layout({
     <a class="site-header__brand" href="${escapeAttr(home)}">${escapeHtml(site.siteName)}</a>
     <nav class="site-header__nav" aria-label="Primary">
       <a href="${escapeAttr(home)}"${path === "/" ? ' aria-current="page"' : ""}>Extensions</a>
+      <a href="${escapeAttr(home)}#tools">Tools</a>
       <a href="${escapeAttr(site.owner.url)}">bobrowsse.com</a>
       <a href="${escapeAttr(site.links.marketplace)}">Marketplace</a>
       <a href="${escapeAttr(site.links.openVsx)}">Open VSX</a>
@@ -96,8 +97,9 @@ export function personOrgJsonLd(site) {
 /**
  * @param {object} site
  * @param {object[]} extensions
+ * @param {object[]} [packages]
  */
-export function renderIndex(site, extensions) {
+export function renderIndex(site, extensions, packages = []) {
   const rows = extensions
     .map((ext) => {
       const href = assetPath(site, ext.pagePath);
@@ -116,6 +118,37 @@ export function renderIndex(site, extensions) {
     })
     .join("\n");
 
+  const packageRows = packages
+    .map((pkg) => {
+      const meta = pkg.version ? `npm · v${pkg.version}` : "npm";
+      return `      <li class="tool-row">
+        <div class="tool-row__inner">
+          <div>
+            <a class="tool-row__title" href="${escapeAttr(pkg.npmUrl)}">${escapeHtml(pkg.displayName)}</a>
+            <p class="tool-row__desc"><code>${escapeHtml(pkg.name)}</code> — ${escapeHtml(pkg.description)}</p>
+          </div>
+          <a class="tool-row__meta" href="${escapeAttr(pkg.npmUrl)}">${escapeHtml(meta)}</a>
+        </div>
+        <p class="tool-row__links"><a href="${escapeAttr(pkg.npmUrl)}">npm</a> · <a href="${escapeAttr(pkg.githubUrl)}">GitHub</a></p>
+      </li>`;
+    })
+    .join("\n");
+
+  const toolsSection =
+    packages.length === 0
+      ? ""
+      : `
+    <section class="section" id="tools">
+      <div class="container">
+        <p class="eyebrow">npm · ${escapeHtml(site.publisher)}</p>
+        <h2 class="page-title">Tools</h2>
+        <p class="lead">CLI and project kits published to npm alongside the editor extensions.</p>
+        <ul class="tool-list">
+${packageRows}
+        </ul>
+      </div>
+    </section>`;
+
   const body = `    <section class="section">
       <div class="container">
         <p class="eyebrow">VS Code &amp; Open VSX · ${escapeHtml(site.publisher)}</p>
@@ -125,7 +158,22 @@ export function renderIndex(site, extensions) {
 ${rows}
         </ul>
       </div>
-    </section>`;
+    </section>${toolsSection}`;
+
+  const listItems = [
+    ...extensions.map((ext, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: ext.pageUrl,
+      name: ext.displayName,
+    })),
+    ...packages.map((pkg, i) => ({
+      "@type": "ListItem",
+      position: extensions.length + i + 1,
+      url: pkg.npmUrl,
+      name: pkg.displayName,
+    })),
+  ];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -134,18 +182,13 @@ ${rows}
         "@type": "CollectionPage",
         name: site.siteName,
         url: `${site.baseUrl}/`,
-        description: `VS Code and Open VSX extensions published by ${site.publisher}.`,
+        description: `VS Code, Open VSX, and npm tools published by ${site.publisher}.`,
         isPartOf: { "@type": "WebSite", name: site.siteName, url: `${site.baseUrl}/` },
         author: personOrgJsonLd(site),
       },
       {
         "@type": "ItemList",
-        itemListElement: extensions.map((ext, i) => ({
-          "@type": "ListItem",
-          position: i + 1,
-          url: ext.pageUrl,
-          name: ext.displayName,
-        })),
+        itemListElement: listItems,
       },
     ],
   };
@@ -153,7 +196,7 @@ ${rows}
   return layout({
     site,
     title: `${site.siteName} — VS Code & Open VSX`,
-    description: `Directory of VS Code / Open VSX extensions by ${site.owner.name} (${site.publisher}).`,
+    description: `Directory of VS Code / Open VSX extensions and npm tools by ${site.owner.name} (${site.publisher}).`,
     canonical: `${site.baseUrl}/`,
     jsonLd,
     body,
@@ -224,12 +267,13 @@ export function renderExtension(site, ext) {
 /**
  * @param {object} site
  * @param {object[]} extensions
+ * @param {object[]} [packages]
  */
-export function renderRootReadme(site, extensions) {
+export function renderRootReadme(site, extensions, packages = []) {
   const lines = [
     `# ${site.siteName}`,
     "",
-    `SEO directory of VS Code / Open VSX extensions by **${site.owner.name}** (\`${site.publisher}\`).`,
+    `SEO directory of VS Code / Open VSX extensions and npm tools by **${site.owner.name}** (\`${site.publisher}\`).`,
     "",
     site.owner.positioning,
     "",
@@ -238,7 +282,7 @@ export function renderRootReadme(site, extensions) {
     `- Marketplace: ${site.links.marketplace}`,
     `- Open VSX: ${site.links.openVsx}`,
     "",
-    "Pages are generated from live Open VSX metadata (including each extension README) on every deploy, daily cron, and `repository_dispatch` after a release.",
+    "Extension pages are generated from live Open VSX metadata (including each extension README) on every deploy, daily cron, and `repository_dispatch` after a release. npm tools come from `data/packages.json`.",
     "",
     "## Extensions",
     "",
@@ -250,6 +294,15 @@ export function renderRootReadme(site, extensions) {
     lines.push(
       `| ${ext.displayName} | \`${ext.version}\` | [page](${ext.pageUrl}) | [Marketplace](${ext.marketplaceUrl}) | [Open VSX](${ext.openVsxUrl}) | [repo](${ext.githubUrl}) |`,
     );
+  }
+
+  if (packages.length > 0) {
+    lines.push("", "## Tools (npm)", "", "| Package | Version | npm | GitHub |", "| --- | --- | --- | --- |");
+    for (const pkg of packages) {
+      lines.push(
+        `| ${pkg.displayName} (\`${pkg.name}\`) | \`${pkg.version || "?"}\` | [npm](${pkg.npmUrl}) | [repo](${pkg.githubUrl}) |`,
+      );
+    }
   }
 
   lines.push(

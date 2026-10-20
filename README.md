@@ -1,6 +1,6 @@
 # bobrowsse-tech extensions
 
-SEO directory of VS Code / Open VSX extensions by **Bob Rowsse Walakira** (`bobrowsse-tech`).
+SEO directory of VS Code / Open VSX extensions and npm tools by **Bob Rowsse Walakira** (`bobrowsse-tech`).
 
 Pragmatic fullstack engineering. Building tools for real users.
 
@@ -9,7 +9,7 @@ Pragmatic fullstack engineering. Building tools for real users.
 - Marketplace: https://marketplace.visualstudio.com/publishers/bobrowsse-tech
 - Open VSX: https://open-vsx.org/namespace/bobrowsse-tech
 
-Pages are generated from live Open VSX metadata (including each extension README) on every deploy, daily cron, and `repository_dispatch` after a release.
+Extension pages are generated from live Open VSX metadata (including each extension README) on every deploy, daily cron, and `repository_dispatch` after a release. npm tools come from `data/packages.json`.
 
 ## Extensions
 
@@ -28,6 +28,12 @@ Pages are generated from live Open VSX metadata (including each extension README
 | Migration-in-Progress Tracker | `0.1.1` | [page](https://bobrowsse-tech.github.io/vscode-extensions/extensions/migration-tracker/) | [Marketplace](https://marketplace.visualstudio.com/items?itemName=bobrowsse-tech.migration-tracker) | [Open VSX](https://open-vsx.org/extension/bobrowsse-tech/migration-tracker) | [repo](https://github.com/bobrowsse-tech/migration-tracker) |
 | Stale Feature-Flag Finder | `0.1.1` | [page](https://bobrowsse-tech.github.io/vscode-extensions/extensions/stale-flag-finder/) | [Marketplace](https://marketplace.visualstudio.com/items?itemName=bobrowsse-tech.stale-flag-finder) | [Open VSX](https://open-vsx.org/extension/bobrowsse-tech/stale-flag-finder) | [repo](https://github.com/bobrowsse-tech/stale-flag-finder) |
 | Works-on-My-Machine Preflight | `0.1.1` | [page](https://bobrowsse-tech.github.io/vscode-extensions/extensions/preflight-check/) | [Marketplace](https://marketplace.visualstudio.com/items?itemName=bobrowsse-tech.preflight-check) | [Open VSX](https://open-vsx.org/extension/bobrowsse-tech/preflight-check) | [repo](https://github.com/bobrowsse-tech/preflight-check) |
+
+## Tools (npm)
+
+| Package | Version | npm | GitHub |
+| --- | --- | --- | --- |
+| AI Project Kit (`@bobrowsse-tech/ai-kit`) | `1.6.0` | [npm](https://www.npmjs.com/package/@bobrowsse-tech/ai-kit) | [repo](https://github.com/bobrowsse-tech/ai-kit) |
 
 ## Generate locally
 
