@@ -12,12 +12,16 @@
     "docs-drift-checker",
     "migration-tracker",
     "stale-flag-finder",
-    "preflight-check"
+    "preflight-check",
+    "ai-kit"
   ],
   "repos": {
     "design-token-extractor-migrator": "design-token-extractor",
     "dryguard-vscode": "dryguard",
-    "smartmerge-resolver": "smartmerge"
+    "smartmerge-resolver": "smartmerge",
+    "ai-kit": "ai-kit"
   },
-  "seoBlurbs": {}
+  "seoBlurbs": {
+    "ai-kit": "Install and refresh AI Project Kit (rules, living docs, multi-agent guardrails, MCP setup) in the open workspace — same engine as the npm CLI @bobrowsse-tech/ai-kit."
+  }
 }
