@@ -28,8 +28,16 @@ async function fetchJson(url, init) {
 }
 
 /**
+ * Open VSX listings are cached for 10 minutes. A fresh query skips that.
  * @param {string} url
+ * @param {string} nonce
  */
+function liveUrl(url, nonce) {
+  const u = new URL(url);
+  u.searchParams.set("nocache", nonce);
+  return u.toString();
+}
+
 async function fetchText(url) {
   const res = await fetch(url, {
     headers: {
@@ -93,7 +101,8 @@ export async function loadCatalog() {
     await readFile(path.join(ROOT, "data/extensions.overrides.json"), "utf8"),
   );
 
-  const namespace = await fetchJson(`${OVSX}/api/${site.publisher}`);
+  const nonce = String(Date.now());
+  const namespace = await fetchJson(liveUrl(`${OVSX}/api/${site.publisher}`, nonce));
   const names = Object.keys(namespace.extensions || {});
   if (names.length === 0) {
     throw new Error(`Open VSX returned zero extensions for publisher ${site.publisher}`);
@@ -103,12 +112,12 @@ export async function loadCatalog() {
   const extensions = [];
 
   for (const name of names) {
-    const detail = await fetchJson(`${OVSX}/api/${site.publisher}/${name}`);
+    const detail = await fetchJson(liveUrl(`${OVSX}/api/${site.publisher}/${name}`, nonce));
     let readmeHtml = "";
     const readmeUrl = detail.files?.readme;
     if (readmeUrl) {
       try {
-        const md = await fetchText(readmeUrl);
+        const md = await fetchText(liveUrl(readmeUrl, nonce));
         readmeHtml = renderReadme(md);
       } catch (err) {
         console.warn(`README fetch failed for ${name}:`, err.message || err);
